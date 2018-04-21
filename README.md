@@ -1,31 +1,50 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This role help you to mantain the system administration users.
 
-Requirements
-------------
+With this role you can:
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* Create a group
+* Create system administrator users
+* Remove system administrator users
+* Add `sudo` permissions to system administrator users
+
+This role need be runned with `sudo` access.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+You need declare a `sys_admins` list with the next structure:
 
-Dependencies
-------------
+```yaml
+sys_admins:
+  - name: user1
+    ssh_key: "~/.ssh/id_rsa.pub"
+    state: present
+  - name: user2
+    ssh_key: "~/.ssh/id_rsa.pub"
+    state: absent
+``` 
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+System Administrators vars:
+
+* `name`: User name
+* `ssh_key`: Path of ssh key to be copied in user ssh authorized keys file.
+* `state`: Choices absent or present
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```yaml
+- hosts: servers
+  roles:
+    - role: coopdevs.sys_admins
+      sys_admins:
+       - name: sysadmin
+         ssh_key: "~/.ssh/id_rsa.pub"
+         state: present
+```
 
 License
 -------
@@ -35,4 +54,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Coopdevs http://coopdevs.org

@@ -17,7 +17,7 @@ Role Variables
 
 The role variables are:
 
-* **`sys_admins`**
+### `sys_admins`
 
 A list of users. Any item need be in the next structure:
 
@@ -37,7 +37,7 @@ System Administrators vars:
 - `ssh_key`: Path of ssh key to be copied in user ssh authorized keys file.
 - `state`: Choices absent or present
 
-* **`sys_admin_group`**
+### `sys_admin_group`
 
 The name of the system adnimistrators group
 

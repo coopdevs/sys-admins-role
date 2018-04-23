@@ -15,6 +15,8 @@ This role need be runned with `sudo` access.
 Role Variables
 --------------
 
+> **This variables must be declared to run this role.**
+
 The role variables are:
 
 ### `sys_admins`

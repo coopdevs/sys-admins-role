@@ -1,13 +1,11 @@
 ---
 - name: Create group for system administration
-  become: yes
   group:
     name: "{{ sys_admin_group }}"
     state: present
   when: sys_admin_group is defined
 
 - name: Create users for system administration
-  become: yes
   user:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
@@ -18,7 +16,6 @@
   when: sys_admins is defined
 
 - name: Add SSH public keys to system administrators
-  become: yes
   authorized_key:
     user: "{{ item.name }}"
     key: "{{ lookup('file', item.ssh_key) }}"
@@ -28,7 +25,6 @@
   when: sys_admins is defined
 
 - name: Copy sudoers configuration for system administrators
-  become: yes
   template:
     src: sudoers.j2
     dest: "/etc/sudoers.d/90-sys-admins"

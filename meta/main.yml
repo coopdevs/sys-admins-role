@@ -12,7 +12,10 @@ galaxy_info:
       versions:
         - xenial
 
-      galaxy_tags:
-        - sysadmins
-        - sudoers
-
+  galaxy_tags:
+    - system
+    - security
+    - linux
+    - users
+    - sudo
+    - sudoers

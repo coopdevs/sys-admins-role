@@ -1,4 +1,9 @@
 ---
+- name: Install sudo command
+  apt:
+    pkg: sudo
+    state: present
+
 - name: Create group for system administration
   group:
     name: "{{ sys_admin_group }}"

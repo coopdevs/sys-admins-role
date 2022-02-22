@@ -1,8 +1,9 @@
 ---
-- name: Install sudo command
+- name: Update apt cache and install sudo command
   apt:
     pkg: sudo
     state: present
+    update_cache: yes
 
 - name: Create group for system administration
   group:

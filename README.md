@@ -9,6 +9,7 @@ With this role you can:
 * Create system administrator users
 * Remove system administrator users
 * Add `sudo` permissions to system administrator users
+* Add multiple ssh keys to a single system administrator user
 
 This role need be runned with `sudo` access.
 
@@ -41,11 +42,24 @@ System Administrators vars:
 
 ### `sys_admin_group`
 
-The name of the system adnimistrators group
+The name of the system administrators group
 
 ```yaml
 sys_admin_group: sysadmin-group
 ``` 
+
+## Single user mode
+When you are restricted to a single user, you must set the `sysadmin_multi_user` variable to `false` and set the `sysadmin_user` variable with the user name. The user must be already created on the server with root privileges.
+
+This will iterate over the `sys_admins` list and add each user key to the authorized keys for the user defined in `sysadmin_user` variable.
+
+This mode is disabled by default.
+
+  ```yaml
+  sysadmin_multi_user: false
+  sysadmin_user: "sysadmin"
+  ```
+
 Example Playbook
 ----------------
 

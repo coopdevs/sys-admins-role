@@ -1,34 +1,14 @@
 ---
-- name: Install sudo command
-  apt:
-    pkg: sudo
-    state: present
+- import_tasks: multiuser.yml
+  when: sysadmin_multi_user
 
-- name: Create group for system administration
-  group:
-    name: "{{ sys_admin_group }}"
-    state: present
+- import_tasks: singleuser.yml
+  when: not sysadmin_multi_user
 
-- name: Create users for system administration
-  user:
-    name: "{{ item.name }}"
-    state: "{{ item.state }}"
-    shell: "/bin/bash"
-    groups: "{{ sys_admin_group }}"
-    append: yes
-  with_items: "{{ sys_admins }}"
-
-- name: Add SSH public keys to system administrators
-  authorized_key:
-    user: "{{ item.name }}"
-    key: "{{ lookup('file', item.ssh_key) }}"
-    state: "{{ item.state }}"
-  when: item.state == "present"
-  with_items: "{{ sys_admins }}"
-
-- name: Copy sudoers configuration for system administrators
-  template:
-    src: sudoers.j2
-    dest: "/etc/sudoers.d/90-sys-admins"
-    mode: 0440
-    group: "{{ sys_admin_group }}"
+- name: Fail if multiusers vars are not not set
+  fail:
+    msg: "sysadmin_multi_user must be set to true or false. If false, sysadmin_username must be set."
+  when:
+  - sysadmin_multi_user is not defined
+  - sysadmin_multi_user is not boolean
+  - sysadmin_multi_user is false and sysadmin_username is not defined

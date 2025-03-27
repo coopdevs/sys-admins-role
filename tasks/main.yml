@@ -10,13 +10,14 @@
     name: "{{ sys_admin_group }}"
     state: present
 
-- name: Create users for system administration
+- name: Create/Remove users for system administration
   user:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
     shell: "/bin/bash"
     groups: "{{ sys_admin_group }}"
     append: yes
+    remove: "{{ (item.state == 'absent') }}"
   with_items: "{{ sys_admins }}"
 
 - name: Add SSH public keys to system administrators

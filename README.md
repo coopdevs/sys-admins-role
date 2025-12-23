@@ -31,13 +31,15 @@ sys_admins:
   - name: user2
     ssh_key: "~/.ssh/id_rsa.pub"
     state: absent
-``` 
+```
 
 System Administrators vars:
 
-- `name`: User name
-- `ssh_key`: Path of ssh key to be copied in user ssh authorized keys file.
-- `state`: Choices absent or present
+* `name`: User name
+* `ssh_key`: Path of ssh key to be copied in user ssh authorized keys file.
+* `state`: Choices absent or present
+
+> :warning: To deactivate a user to close access to the server for a concrete user, we can remove the SSH Key file content. Keep an empty file referenced in the `ssh_key` parameter in the user dict inside the `sys_admins` list.
 
 ### `sys_admin_group`
 
